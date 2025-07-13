@@ -1,87 +1,92 @@
-# Planning Poker
+# Planning Poker - Multiplayer Sticker Voting App
 
-A modern, collaborative planning poker application built with React, TypeScript, and Tailwind CSS.
+A real-time multiplayer planning poker application where teams can vote on story points using emoji stickers on a Fibonacci grid.
 
 ## Features
 
-- **Real-time Collaboration**: Join rooms with unique room IDs
-- **Planning Poker Cards**: Standard Fibonacci sequence (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89) plus special cards (?, ☕)
-- **Host Controls**: Room hosts can reveal votes and reset games
-- **Player Management**: Add players and track voting status
-- **Responsive Design**: Works on desktop and mobile devices
-- **Modern UI**: Clean, professional interface with smooth animations
+- 🎯 **Real-time multiplayer** - Multiple players can join the same room
+- ⏰ **5-second voting timer** - Quick, focused voting sessions
+- 🎨 **Emoji stickers** - Fun and visual voting system
+- 🎉 **Confetti celebration** - Automatic reveal with celebration
+- 📱 **Responsive design** - Works on desktop and mobile
+- 🔗 **Easy room sharing** - Copy room code with one click
 
-## Getting Started
+## How to Play
+
+1. **Create a room** - Enter a room code and click "Join Room"
+2. **Share the room** - Copy the room code and share with your team
+3. **Start voting** - Host clicks "Start Timer" to begin a 5-second voting round
+4. **Place stickers** - Click anywhere on the grid to place your emoji sticker
+5. **See results** - When timer ends, all stickers are revealed with confetti!
+
+## Tech Stack
+
+- **Frontend**: React + TypeScript + Tailwind CSS
+- **Backend**: Node.js + Socket.io
+- **Real-time**: WebSocket connections
+- **Build Tool**: Vite
+
+## Local Development
 
 ### Prerequisites
+- Node.js (v16 or higher)
+- npm
 
-- Node.js (version 16 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd planning-poker
-```
-
+### Setup
+1. Clone the repository
 2. Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
-3. Start the development server:
-```bash
-npm run dev
-```
+### Running Locally
+1. Start the server:
+   ```bash
+   npm run server
+   ```
+2. Start the client (in a new terminal):
+   ```bash
+   npm run dev
+   ```
+3. Open http://localhost:3000 in your browser
 
-4. Open your browser and navigate to `http://localhost:3000`
+### Testing Multiplayer
+1. Open multiple browser windows/tabs
+2. Join the same room code in each window
+3. Start a timer and place stickers to test real-time functionality
 
-### Building for Production
+## Deployment
 
-```bash
-npm run build
-```
+This app can be deployed to:
+- **Vercel** (recommended)
+- **Netlify**
+- **Railway**
+- **Render**
 
-## How to Use
-
-1. **Create a Room**: Enter your name and click "Create Room"
-2. **Join a Room**: Enter your name and room ID, then click "Join Room"
-3. **Vote**: Click on a planning poker card to cast your vote
-4. **Reveal**: Host can reveal all votes to see the average
-5. **Reset**: Host can reset the game for a new round
-
-## Technology Stack
-
-- **React 18**: Modern React with hooks
-- **TypeScript**: Type-safe development
-- **Vite**: Fast build tool and dev server
-- **Tailwind CSS**: Utility-first CSS framework
-- **React Router**: Client-side routing
-- **Lucide React**: Beautiful icons
+### Vercel Deployment
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy with automatic builds
 
 ## Project Structure
 
 ```
-src/
-├── components/
-│   ├── Welcome.tsx          # Landing page
-│   └── PlanningPoker.tsx    # Main game component
-├── lib/
-│   └── utils.ts             # Utility functions
-├── App.tsx                  # Main app component
-├── main.tsx                 # Entry point
-└── index.css               # Global styles
+├── src/
+│   ├── components/
+│   │   ├── PlanningPoker.tsx    # Main game component
+│   │   └── Welcome.tsx          # Room entry component
+│   ├── hooks/
+│   │   └── useMultiplayer.ts    # Socket.io multiplayer logic
+│   └── main.tsx                 # App entry point
+├── server/
+│   └── index.js                 # Socket.io server
+└── package.json
 ```
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+Feel free to submit issues and enhancement requests!
 
 ## License
 
-MIT License - feel free to use this project for your own planning poker sessions! 
+MIT License 
