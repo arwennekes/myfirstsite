@@ -9,7 +9,7 @@ const server = http.createServer(app);
 // Configure CORS for both development and production
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://planning-poker-19wfmo5ia-annabels-projects-e96bae08.vercel.app",
+  "https://planning-poker-33vvyy413-annabels-projects-e96bae08.vercel.app",
   "https://planning-poker-app.vercel.app"
 ];
 
