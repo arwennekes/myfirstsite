@@ -15,6 +15,7 @@ const allowedOrigins = [
   "https://planning-poker-oqda0mz6n-annabels-projects-e96bae08.vercel.app",
   "https://planning-poker-dt2um7qb5-annabels-projects-e96bae08.vercel.app",
   "https://planning-poker-app.vercel.app",
+  "https://planning-poker-app-three.vercel.app",
   "https://myfirstsite-rs56.onrender.com"
 ];
 
