@@ -1,0 +1,99 @@
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const cors = require('cors');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
+
+app.use(cors());
+
+// Store room data
+const rooms = new Map();
+
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+
+  // Join room
+  socket.on('joinRoom', ({ roomId, isHost }) => {
+    socket.join(roomId);
+    
+    if (!rooms.has(roomId)) {
+      rooms.set(roomId, {
+        isTimerRunning: false,
+        timeLeft: 5,
+        stickers: [],
+        allStickers: [] // Store all stickers but only reveal after timer
+      });
+    }
+
+    console.log(`Player joined room ${roomId}`);
+  });
+
+  // Start timer
+  socket.on('startTimer', ({ roomId }) => {
+    const room = rooms.get(roomId);
+    if (room) {
+      room.isTimerRunning = true;
+      room.timeLeft = 5;
+      room.stickers = [];
+      room.allStickers = [];
+
+      io.to(roomId).emit('timerStarted', { timeLeft: room.timeLeft });
+      
+      // Start countdown
+      const countdown = setInterval(() => {
+        room.timeLeft--;
+        io.to(roomId).emit('timerUpdate', { timeLeft: room.timeLeft });
+        
+        if (room.timeLeft <= 0) {
+          room.isTimerRunning = false;
+          // Reveal all stickers and trigger confetti
+          room.stickers = room.allStickers;
+          io.to(roomId).emit('timerEnded', { stickers: room.stickers });
+          io.to(roomId).emit('confetti');
+          clearInterval(countdown);
+        }
+      }, 1000);
+    }
+  });
+
+  // Place sticker
+  socket.on('placeSticker', ({ roomId, position, emoji }) => {
+    const room = rooms.get(roomId);
+    if (room && room.isTimerRunning) {
+      // Remove any existing sticker from this player
+      room.allStickers = room.allStickers.filter(sticker => sticker.playerId !== socket.id);
+      
+      const sticker = {
+        id: Date.now().toString(),
+        emoji,
+        position,
+        playerId: socket.id
+      };
+
+      // Add to all stickers but only show to the player who placed it
+      room.allStickers.push(sticker);
+      
+      // Only show the player's own sticker during timer
+      const playerSticker = [sticker];
+      socket.emit('stickerPlaced', { sticker, stickers: playerSticker });
+    }
+  });
+
+  // Disconnect
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+});
+
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+}); 
