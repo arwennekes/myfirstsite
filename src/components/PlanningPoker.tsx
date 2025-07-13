@@ -178,7 +178,7 @@ const PlanningPoker: React.FC = () => {
         </div>
         
         <div 
-          className="grid grid-cols-3 gap-3 relative bg-gray-50 p-4 rounded-lg"
+          className="grid grid-cols-3 gap-3 relative bg-gray-50 p-4 rounded-lg cursor-default"
           onClick={handlePlaceSticker}
           style={{ cursor: roomState.isTimerRunning ? 'crosshair' : 'default' }}
           ref={gridRef}
@@ -186,7 +186,7 @@ const PlanningPoker: React.FC = () => {
           {fibonacciSequence.map((value, index) => (
             <div
               key={index}
-              className="aspect-square rounded-lg border-2 border-gray-300 bg-white flex items-center justify-center font-bold text-lg text-gray-500"
+              className="aspect-square rounded-lg border-2 border-gray-300 bg-white flex items-center justify-center font-bold text-lg text-gray-500 cursor-default"
             >
               {value}
             </div>
