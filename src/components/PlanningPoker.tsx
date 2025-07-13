@@ -98,18 +98,24 @@ const PlanningPoker: React.FC = () => {
     const colIndex = sticker.position.cellIndex % gridLayout.cols
     const rowIndex = Math.floor(sticker.position.cellIndex / gridLayout.cols)
     
-    // Use CSS Grid positioning for more reliable positioning
+    // Calculate the position within the grid
+    const cellWidth = 100 / gridLayout.cols
+    const cellHeight = 100 / gridLayout.rows
+    
+    // Position sticker relative to its grid cell
+    const cellLeft = colIndex * cellWidth
+    const cellTop = rowIndex * cellHeight
+    
+    // Add the relative position within the cell
+    const left = cellLeft + (sticker.position.relativeX * cellWidth)
+    const top = cellTop + (sticker.position.relativeY * cellHeight)
+    
     return {
-      gridColumn: `${colIndex + 1} / ${colIndex + 2}`,
-      gridRow: `${rowIndex + 1} / ${rowIndex + 2}`,
-      position: 'relative' as const,
-      zIndex: 10,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      left: `${left}%`,
+      top: `${top}%`,
       transform: 'translate(-50%, -50%)',
-      left: `${sticker.position.relativeX * 100}%`,
-      top: `${sticker.position.relativeY * 100}%`
+      position: 'absolute' as const,
+      zIndex: 10
     }
   }
 
