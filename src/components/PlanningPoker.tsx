@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { Copy, Home, Play, Clock } from 'lucide-react'
 import { cn } from '../lib/utils'
@@ -11,6 +11,8 @@ const PlanningPoker: React.FC = () => {
   const { isHost } = location.state || {}
 
   const [copied, setCopied] = useState(false)
+  const [gridLayout, setGridLayout] = useState({ cols: 3, rows: 2 })
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const fibonacciSequence = [1, 2, 3, 5, 8, '?']
   const emojiOptions = ['🎯', '⭐', '💎', '🔥', '💖', '🎉', '🚀', '🌈', '🍕', '🎨']
@@ -21,6 +23,30 @@ const PlanningPoker: React.FC = () => {
     startTimer,
     placeSticker
   } = useMultiplayer(roomId || '', isHost || false)
+
+  // Update grid layout based on current breakpoint
+  useEffect(() => {
+    const updateGridLayout = () => {
+      if (gridRef.current) {
+        const computedStyle = window.getComputedStyle(gridRef.current)
+        const gridTemplateColumns = computedStyle.gridTemplateColumns
+        const cols = gridTemplateColumns.split(' ').length
+        const rows = Math.ceil(6 / cols)
+        setGridLayout({ cols, rows })
+      }
+    }
+
+    // Initial update
+    updateGridLayout()
+
+    // Update on resize
+    const resizeObserver = new ResizeObserver(updateGridLayout)
+    if (gridRef.current) {
+      resizeObserver.observe(gridRef.current)
+    }
+
+    return () => resizeObserver.disconnect()
+  }, [])
 
   const copyRoomId = async () => {
     if (roomId) {
@@ -35,24 +61,22 @@ const PlanningPoker: React.FC = () => {
   }
 
   const handlePlaceSticker = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (roomState.isTimerRunning) {
-      const rect = event.currentTarget.getBoundingClientRect()
+    if (roomState.isTimerRunning && gridRef.current) {
+      const rect = gridRef.current.getBoundingClientRect()
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
       
       // Calculate which grid cell was clicked
       const gridWidth = rect.width
       const gridHeight = rect.height
-      const cols = window.innerWidth >= 1024 ? 6 : window.innerWidth >= 768 ? 4 : 3
-      const rows = Math.ceil(6 / cols) // 6 items total
-      const cellWidth = gridWidth / cols
-      const cellHeight = gridHeight / rows
+      const cellWidth = gridWidth / gridLayout.cols
+      const cellHeight = gridHeight / gridLayout.rows
       
       const colIndex = Math.floor(x / cellWidth)
       const rowIndex = Math.floor(y / cellHeight)
       
       // Ensure we're within bounds
-      if (colIndex >= 0 && colIndex < cols && rowIndex >= 0 && rowIndex < rows) {
+      if (colIndex >= 0 && colIndex < gridLayout.cols && rowIndex >= 0 && rowIndex < gridLayout.rows) {
         // Calculate position within the specific cell
         const cellX = x - (colIndex * cellWidth)
         const cellY = y - (rowIndex * cellHeight)
@@ -62,7 +86,7 @@ const PlanningPoker: React.FC = () => {
         const relativeY = cellY / cellHeight
         
         placeSticker({ 
-          cellIndex: rowIndex * cols + colIndex,
+          cellIndex: rowIndex * gridLayout.cols + colIndex,
           relativeX: relativeX,
           relativeY: relativeY
         }, getRandomEmoji())
@@ -71,13 +95,12 @@ const PlanningPoker: React.FC = () => {
   }
 
   const getStickerStyle = (sticker: any) => {
-    const cols = window.innerWidth >= 1024 ? 6 : window.innerWidth >= 768 ? 4 : 3
-    const colIndex = sticker.position.cellIndex % cols
-    const rowIndex = Math.floor(sticker.position.cellIndex / cols)
+    const colIndex = sticker.position.cellIndex % gridLayout.cols
+    const rowIndex = Math.floor(sticker.position.cellIndex / gridLayout.cols)
     
     // Calculate the position within the grid
-    const cellWidth = 100 / cols
-    const cellHeight = 100 / Math.ceil(6 / cols)
+    const cellWidth = 100 / gridLayout.cols
+    const cellHeight = 100 / gridLayout.rows
     
     // Position sticker relative to its grid cell
     const cellLeft = colIndex * cellWidth
@@ -176,6 +199,7 @@ const PlanningPoker: React.FC = () => {
           className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 relative bg-gray-50 p-4 rounded-lg"
           onClick={handlePlaceSticker}
           style={{ cursor: roomState.isTimerRunning ? 'crosshair' : 'default' }}
+          ref={gridRef}
         >
           {fibonacciSequence.map((value, index) => (
             <div
