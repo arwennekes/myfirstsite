@@ -70,24 +70,21 @@ const PlanningPoker: React.FC = () => {
     }
   }
 
-  const getStickerPosition = (sticker: any) => {
+  const getStickerStyle = (sticker: any) => {
     const cols = window.innerWidth >= 1024 ? 6 : window.innerWidth >= 768 ? 4 : 3
-    const rows = Math.ceil(6 / cols)
-    const cellWidth = 100 / cols // Percentage width of each cell
-    const cellHeight = 100 / rows // Percentage height of each cell
-    
     const colIndex = sticker.position.cellIndex % cols
     const rowIndex = Math.floor(sticker.position.cellIndex / cols)
     
-    // Calculate the sticker position within its specific cell
-    const cellLeft = colIndex * cellWidth
-    const cellTop = rowIndex * cellHeight
-    
-    // Add the relative position within the cell
-    const left = cellLeft + (sticker.position.relativeX * cellWidth)
-    const top = cellTop + (sticker.position.relativeY * cellHeight)
-    
-    return { left: `${left}%`, top: `${top}%` }
+    // Position sticker relative to its grid cell using CSS Grid
+    return {
+      gridColumn: colIndex + 1,
+      gridRow: rowIndex + 1,
+      left: `${sticker.position.relativeX * 100}%`,
+      top: `${sticker.position.relativeY * 100}%`,
+      transform: 'translate(-50%, -50%)',
+      position: 'absolute' as const,
+      zIndex: 10
+    }
   }
 
   return (
@@ -182,16 +179,12 @@ const PlanningPoker: React.FC = () => {
           
           {/* Sticker Overlays */}
           {roomState.stickers.map((sticker) => {
-            const position = getStickerPosition(sticker)
+            const style = getStickerStyle(sticker)
             return (
               <div
                 key={sticker.id}
-                className="absolute text-3xl pointer-events-none z-10 animate-bounce"
-                style={{
-                  left: position.left,
-                  top: position.top,
-                  transform: 'translate(-50%, -50%)'
-                }}
+                className="text-3xl pointer-events-none animate-bounce"
+                style={style}
               >
                 {sticker.emoji}
               </div>
