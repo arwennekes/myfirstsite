@@ -33,7 +33,7 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
   useEffect(() => {
     // Use deployed server URL in production, localhost in development
     const serverUrl = import.meta.env.DEV 
-      ? 'http://localhost:3001'
+      ? 'http://localhost:3002'
       : 'https://myfirstsite-rs56.onrender.com';
     const newSocket = io(serverUrl);
     setSocket(newSocket);

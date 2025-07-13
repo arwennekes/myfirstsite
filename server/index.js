@@ -9,6 +9,7 @@ const server = http.createServer(app);
 // Configure CORS for both development and production
 const allowedOrigins = [
   "http://localhost:3000",
+  "http://localhost:3001",
   "https://planning-poker-33vvyy413-annabels-projects-e96bae08.vercel.app",
   "https://planning-poker-kx8eyidk4-annabels-projects-e96bae08.vercel.app",
   "https://planning-poker-oqda0mz6n-annabels-projects-e96bae08.vercel.app",
@@ -114,7 +115,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 }); 
