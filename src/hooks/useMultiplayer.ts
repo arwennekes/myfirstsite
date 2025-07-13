@@ -25,7 +25,8 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3001');
+    const serverUrl = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+    const newSocket = io(serverUrl);
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
