@@ -26,26 +26,8 @@ const PlanningPoker: React.FC = () => {
 
   // Update grid layout based on current breakpoint
   useEffect(() => {
-    const updateGridLayout = () => {
-      if (gridRef.current) {
-        const computedStyle = window.getComputedStyle(gridRef.current)
-        const gridTemplateColumns = computedStyle.gridTemplateColumns
-        const cols = gridTemplateColumns.split(' ').length
-        const rows = Math.ceil(6 / cols)
-        setGridLayout({ cols, rows })
-      }
-    }
-
-    // Initial update
-    updateGridLayout()
-
-    // Update on resize
-    const resizeObserver = new ResizeObserver(updateGridLayout)
-    if (gridRef.current) {
-      resizeObserver.observe(gridRef.current)
-    }
-
-    return () => resizeObserver.disconnect()
+    // Always use 3 columns and 2 rows for consistent layout
+    setGridLayout({ cols: 3, rows: 2 })
   }, [])
 
   const copyRoomId = async () => {
@@ -196,7 +178,7 @@ const PlanningPoker: React.FC = () => {
         </div>
         
         <div 
-          className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 relative bg-gray-50 p-4 rounded-lg"
+          className="grid grid-cols-3 gap-3 relative bg-gray-50 p-4 rounded-lg"
           onClick={handlePlaceSticker}
           style={{ cursor: roomState.isTimerRunning ? 'crosshair' : 'default' }}
           ref={gridRef}
