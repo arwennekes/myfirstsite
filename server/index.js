@@ -5,14 +5,26 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
+
+// Configure CORS for both development and production
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://planning-poker-19wfmo5ia-annabels-projects-e96bae08.vercel.app",
+  "https://planning-poker-app.vercel.app"
+];
+
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
-app.use(cors());
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 // Store room data
 const rooms = new Map();
