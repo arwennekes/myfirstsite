@@ -25,10 +25,10 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    // Use localhost for development, and a placeholder for production
+    // Use deployed server URL in production, localhost in development
     const serverUrl = import.meta.env.DEV 
       ? 'http://localhost:3001'
-      : 'https://planning-poker-backend.onrender.com'; // We'll set this up next
+      : 'https://myfirstsite-rs56.onrender.com';
     const newSocket = io(serverUrl);
     setSocket(newSocket);
 

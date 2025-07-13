@@ -10,7 +10,8 @@ const server = http.createServer(app);
 const allowedOrigins = [
   "http://localhost:3000",
   "https://planning-poker-33vvyy413-annabels-projects-e96bae08.vercel.app",
-  "https://planning-poker-app.vercel.app"
+  "https://planning-poker-app.vercel.app",
+  "https://myfirstsite-rs56.onrender.com"
 ];
 
 const io = socketIo(server, {
