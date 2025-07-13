@@ -40,8 +40,45 @@ const PlanningPoker: React.FC = () => {
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
       
-      placeSticker({ x, y }, getRandomEmoji())
+      // Calculate which grid cell was clicked
+      const gridWidth = rect.width
+      const gridHeight = rect.height
+      const cols = window.innerWidth >= 1024 ? 6 : window.innerWidth >= 768 ? 4 : 3
+      const rows = Math.ceil(6 / cols) // 6 items total
+      const cellWidth = gridWidth / cols
+      const cellHeight = gridHeight / rows
+      
+      const colIndex = Math.floor(x / cellWidth)
+      const rowIndex = Math.floor(y / cellHeight)
+      
+      // Ensure we're within bounds
+      if (colIndex >= 0 && colIndex < cols && rowIndex >= 0 && rowIndex < rows) {
+        // Calculate relative position within the cell
+        const relativeX = (x % cellWidth) / cellWidth
+        const relativeY = (y % cellHeight) / cellHeight
+        
+        placeSticker({ 
+          cellIndex: rowIndex * cols + colIndex,
+          relativeX: relativeX,
+          relativeY: relativeY
+        }, getRandomEmoji())
+      }
     }
+  }
+
+  const getStickerPosition = (sticker: any) => {
+    const cols = window.innerWidth >= 1024 ? 6 : window.innerWidth >= 768 ? 4 : 3
+    const rows = Math.ceil(6 / cols)
+    const cellWidth = 100 / cols // Assuming grid is 100% width
+    const cellHeight = 100 / rows // Assuming grid is 100% height
+    
+    const colIndex = sticker.position.cellIndex % cols
+    const rowIndex = Math.floor(sticker.position.cellIndex / cols)
+    
+    const left = (colIndex * cellWidth) + (sticker.position.relativeX * cellWidth)
+    const top = (rowIndex * cellHeight) + (sticker.position.relativeY * cellHeight)
+    
+    return { left: `${left}%`, top: `${top}%` }
   }
 
   return (
@@ -135,18 +172,22 @@ const PlanningPoker: React.FC = () => {
           ))}
           
           {/* Sticker Overlays */}
-          {roomState.stickers.map((sticker) => (
-            <div
-              key={sticker.id}
-              className="absolute text-3xl pointer-events-none z-10 animate-bounce"
-              style={{
-                left: sticker.position.x - 15,
-                top: sticker.position.y - 15,
-              }}
-            >
-              {sticker.emoji}
-            </div>
-          ))}
+          {roomState.stickers.map((sticker) => {
+            const position = getStickerPosition(sticker)
+            return (
+              <div
+                key={sticker.id}
+                className="absolute text-3xl pointer-events-none z-10 animate-bounce"
+                style={{
+                  left: position.left,
+                  top: position.top,
+                  transform: 'translate(-50%, -50%)'
+                }}
+              >
+                {sticker.emoji}
+              </div>
+            )
+          })}
         </div>
       </div>
 

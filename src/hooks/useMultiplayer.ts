@@ -2,10 +2,16 @@ import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import confetti from 'canvas-confetti';
 
+interface StickerPosition {
+  cellIndex: number;
+  relativeX: number;
+  relativeY: number;
+}
+
 interface Sticker {
   id: string;
   emoji: string;
-  position: { x: number; y: number };
+  position: StickerPosition;
   playerId: string;
 }
 
@@ -98,7 +104,7 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
     }
   };
 
-  const placeSticker = (position: { x: number; y: number }, emoji: string) => {
+  const placeSticker = (position: StickerPosition, emoji: string) => {
     if (socket && roomState.isTimerRunning) {
       socket.emit('placeSticker', { roomId, position, emoji });
     }
