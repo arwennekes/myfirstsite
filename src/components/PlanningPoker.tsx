@@ -53,9 +53,13 @@ const PlanningPoker: React.FC = () => {
       
       // Ensure we're within bounds
       if (colIndex >= 0 && colIndex < cols && rowIndex >= 0 && rowIndex < rows) {
-        // Calculate relative position within the cell
-        const relativeX = (x % cellWidth) / cellWidth
-        const relativeY = (y % cellHeight) / cellHeight
+        // Calculate position within the specific cell
+        const cellX = x - (colIndex * cellWidth)
+        const cellY = y - (rowIndex * cellHeight)
+        
+        // Store as percentage within the cell
+        const relativeX = cellX / cellWidth
+        const relativeY = cellY / cellHeight
         
         placeSticker({ 
           cellIndex: rowIndex * cols + colIndex,
@@ -69,14 +73,19 @@ const PlanningPoker: React.FC = () => {
   const getStickerPosition = (sticker: any) => {
     const cols = window.innerWidth >= 1024 ? 6 : window.innerWidth >= 768 ? 4 : 3
     const rows = Math.ceil(6 / cols)
-    const cellWidth = 100 / cols // Assuming grid is 100% width
-    const cellHeight = 100 / rows // Assuming grid is 100% height
+    const cellWidth = 100 / cols // Percentage width of each cell
+    const cellHeight = 100 / rows // Percentage height of each cell
     
     const colIndex = sticker.position.cellIndex % cols
     const rowIndex = Math.floor(sticker.position.cellIndex / cols)
     
-    const left = (colIndex * cellWidth) + (sticker.position.relativeX * cellWidth)
-    const top = (rowIndex * cellHeight) + (sticker.position.relativeY * cellHeight)
+    // Calculate the sticker position within its specific cell
+    const cellLeft = colIndex * cellWidth
+    const cellTop = rowIndex * cellHeight
+    
+    // Add the relative position within the cell
+    const left = cellLeft + (sticker.position.relativeX * cellWidth)
+    const top = cellTop + (sticker.position.relativeY * cellHeight)
     
     return { left: `${left}%`, top: `${top}%` }
   }
