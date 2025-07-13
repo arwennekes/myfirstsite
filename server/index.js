@@ -26,6 +26,11 @@ app.use(cors({
   credentials: true
 }));
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Planning Poker Server is running' });
+});
+
 // Store room data
 const rooms = new Map();
 
