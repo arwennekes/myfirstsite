@@ -26,7 +26,7 @@ const PlanningPoker: React.FC = () => {
 
   // Update grid layout based on current breakpoint
   useEffect(() => {
-    // Always use 3 columns and 2 rows for consistent layout
+    // Always use 3 columns and 2 rows for consistent layout - force update
     setGridLayout({ cols: 3, rows: 2 })
   }, [])
 
