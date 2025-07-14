@@ -75,17 +75,11 @@ const Welcome: React.FC = () => {
                   placeholder="Room ID"
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
-                <button
-                  onClick={generateRoomId}
-                  className="btn-secondary whitespace-nowrap"
-                >
-                  Generate
-                </button>
               </div>
               <button
                 onClick={joinRoom}
                 disabled={!roomId}
-                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed mt-2"
               >
                 Join Room
               </button>
