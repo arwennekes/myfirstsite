@@ -110,7 +110,7 @@ const PlanningPoker: React.FC = () => {
         <div className="flex flex-col gap-2 justify-start">
           <button
             onClick={() => navigate('/')}
-            className="btn-secondary flex items-center w-max"
+            className="flex items-center w-max px-4 py-2 rounded bg-blue-100 text-blue-700 border border-blue-200 font-semibold text-sm hover:bg-blue-200 transition-colors"
           >
             Back
           </button>
@@ -118,7 +118,7 @@ const PlanningPoker: React.FC = () => {
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
               Planning Poker
               {isHost ? (
-                <span className="ml-2 px-2 py-1 rounded bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200">Host</span>
+                <span className="ml-2 px-2 py-1 rounded bg-orange-100 text-orange-700 text-xs font-semibold border border-orange-200">Host</span>
               ) : (
                 <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 text-xs font-semibold border border-gray-200">Participant</span>
               )}
