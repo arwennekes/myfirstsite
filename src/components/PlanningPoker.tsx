@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import { Copy, Home, Play, Clock } from 'lucide-react'
+import { Copy, Home, Play, Clock, ChevronLeft } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { useMultiplayer } from '../hooks/useMultiplayer'
 
@@ -110,8 +110,9 @@ const PlanningPoker: React.FC = () => {
         <div className="flex flex-col gap-2 justify-start">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center w-max px-4 py-2 rounded bg-blue-100 text-blue-700 border border-blue-200 font-semibold text-sm hover:bg-blue-200 transition-colors"
+            className="flex items-center w-max px-4 py-2 rounded bg-blue-100 text-blue-700 font-semibold text-sm hover:bg-blue-200 transition-colors shadow-none border-none"
           >
+            <ChevronLeft className="w-4 h-4 mr-1" />
             Back
           </button>
           <div>
