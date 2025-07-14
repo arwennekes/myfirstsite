@@ -168,9 +168,8 @@ const PlanningPoker: React.FC = () => {
           </button>
         </div>
       ) : (
-        <div className="card p-6 mb-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">Sticker Grid</h2>
+        <>
+          <div className="flex justify-end items-center mb-4">
             <div style={{ minWidth: 160, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
               {roomState.isTimerRunning ? (
                 <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
@@ -197,9 +196,8 @@ const PlanningPoker: React.FC = () => {
               )}
             </div>
           </div>
-          
           <div 
-            className="grid grid-cols-3 gap-3 relative bg-gray-50 p-4 rounded-lg cursor-default"
+            className="grid grid-cols-3 gap-3 relative cursor-default"
             onClick={handlePlaceSticker}
             style={{ cursor: roomState.isTimerRunning ? 'crosshair' : 'default' }}
             ref={gridRef}
@@ -212,7 +210,6 @@ const PlanningPoker: React.FC = () => {
                 {value}
               </div>
             ))}
-            
             {/* Sticker Overlays */}
             {roomState.stickers.map((sticker) => {
               const style = getStickerStyle(sticker)
@@ -227,7 +224,7 @@ const PlanningPoker: React.FC = () => {
               )
             })}
           </div>
-        </div>
+        </>
       )}
     </div>
   )
