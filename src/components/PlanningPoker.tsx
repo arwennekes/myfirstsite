@@ -109,7 +109,7 @@ const PlanningPoker: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-            Sticker Grid
+            Planning Poker
             {isHost ? (
               <span className="ml-2 px-2 py-1 rounded bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200">Host</span>
             ) : (
