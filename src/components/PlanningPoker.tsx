@@ -105,12 +105,12 @@ const PlanningPoker: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Sticker Grid</h1>
-          <div className="flex items-center mt-2">
-            <span className="text-gray-600 mr-2">Room:</span>
-            <span className="font-mono text-gray-800 mr-2">{roomId}</span>
+          <div className="flex flex-wrap items-center mt-2 gap-2">
+            <span className="text-gray-600">Room:</span>
+            <span className="font-mono text-gray-800">{roomId}</span>
             <button
               onClick={copyRoomId}
               className="text-gray-500 hover:text-gray-700 transition-colors"
@@ -122,10 +122,8 @@ const PlanningPoker: React.FC = () => {
                 <Copy className="w-4 h-4" />
               )}
             </button>
-          </div>
-          <div className="flex items-center mt-2">
-            <span className="text-gray-600 mr-2">Users in room:</span>
-            <span className="font-mono text-gray-800 mr-2">{userCount}</span>
+            <span className="text-gray-600 ml-4">Users:</span>
+            <span className="font-mono text-gray-800">{userCount}</span>
           </div>
           <div className="flex items-center mt-2">
             <div className={cn(
@@ -147,26 +145,6 @@ const PlanningPoker: React.FC = () => {
           </button>
         </div>
       </div>
-
-      {/* Timer Display */}
-      {roomState.isTimerRunning && (
-        <div className="card p-6 mb-6 bg-yellow-50 border-yellow-200">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Clock className="w-6 h-6 mr-2 text-yellow-600" />
-              <span className="text-lg font-semibold text-yellow-800">
-                Time Left: {roomState.timeLeft} seconds
-              </span>
-            </div>
-            <p className="text-yellow-700">
-              {roomState.stickers.length > 0 
-                ? "Click anywhere to change your sticker! 🎲" 
-                : "Click anywhere on the grid to place a random sticker! 🎲"
-              }
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Sticker Grid */}
       <div className="card p-6 mb-6">
