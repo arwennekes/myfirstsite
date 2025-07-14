@@ -106,75 +106,75 @@ const PlanningPoker: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
-        <div className="flex justify-between items-center mb-2">
+      <div className="flex flex-row justify-between items-start mb-6 gap-2">
+        <div className="flex flex-col gap-2">
           <button
             onClick={() => navigate('/')}
-            className="btn-secondary flex items-center"
+            className="btn-secondary flex items-center w-max"
           >
             Back
           </button>
-          <div style={{ minWidth: 160, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-            {roomState.isTimerRunning ? (
-              <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
-                <Clock className="w-5 h-5 mr-2 text-yellow-600" />
-                {roomState.timeLeft} seconds
-              </div>
-            ) : (
-              <div className="relative group" style={{ width: 160, height: 44 }}>
-                <button
-                  onClick={startTimer}
-                  disabled={!isHost}
-                  className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed w-full h-full"
-                  style={{ width: 160, height: 44 }}
-                >
-                  <Play className="w-4 h-4 mr-2" />
-                  Start Timer
-                </button>
-                {!isHost && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-20 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-3 py-2 whitespace-nowrap shadow-lg" style={{ minWidth: 180 }}>
-                    Only the host can start the timer
-                  </div>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+              Planning Poker
+              {isHost ? (
+                <span className="ml-2 px-2 py-1 rounded bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200">Host</span>
+              ) : (
+                <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 text-xs font-semibold border border-gray-200">Participant</span>
+              )}
+            </h1>
+            <div className="flex flex-wrap items-center mt-2 gap-2">
+              <span className="text-gray-600">Room:</span>
+              <span className="font-mono text-gray-800">{roomId}</span>
+              <button
+                onClick={copyRoomId}
+                className="text-gray-500 hover:text-gray-700 transition-colors"
+                title="Copy room link"
+              >
+                {copied ? (
+                  <div className="text-green-600 text-sm font-medium">Copied!</div>
+                ) : (
+                  <Copy className="w-4 h-4" />
                 )}
-              </div>
-            )}
+              </button>
+              <span className="text-gray-600 ml-4">Users:</span>
+              <span className="font-mono text-gray-800">{userCount}</span>
+            </div>
+            <div className="flex items-center mt-2">
+              <div className={cn(
+                "w-2 h-2 rounded-full mr-2",
+                isConnected ? "bg-green-500" : "bg-red-500"
+              )} />
+              <span className="text-sm text-gray-600">
+                {isConnected ? "Connected" : "Disconnected"}
+              </span>
+            </div>
           </div>
         </div>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-            Planning Poker
-            {isHost ? (
-              <span className="ml-2 px-2 py-1 rounded bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200">Host</span>
-            ) : (
-              <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 text-xs font-semibold border border-gray-200">Participant</span>
-            )}
-          </h1>
-          <div className="flex flex-wrap items-center mt-2 gap-2">
-            <span className="text-gray-600">Room:</span>
-            <span className="font-mono text-gray-800">{roomId}</span>
-            <button
-              onClick={copyRoomId}
-              className="text-gray-500 hover:text-gray-700 transition-colors"
-              title="Copy room link"
-            >
-              {copied ? (
-                <div className="text-green-600 text-sm font-medium">Copied!</div>
-              ) : (
-                <Copy className="w-4 h-4" />
+        <div style={{ minWidth: 160, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          {roomState.isTimerRunning ? (
+            <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
+              <Clock className="w-5 h-5 mr-2 text-yellow-600" />
+              {roomState.timeLeft} seconds
+            </div>
+          ) : (
+            <div className="relative group" style={{ width: 160, height: 44 }}>
+              <button
+                onClick={startTimer}
+                disabled={!isHost}
+                className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed w-full h-full"
+                style={{ width: 160, height: 44 }}
+              >
+                <Play className="w-4 h-4 mr-2" />
+                Start Timer
+              </button>
+              {!isHost && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-20 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-3 py-2 whitespace-nowrap shadow-lg" style={{ minWidth: 180 }}>
+                  Only the host can start the timer
+                </div>
               )}
-            </button>
-            <span className="text-gray-600 ml-4">Users:</span>
-            <span className="font-mono text-gray-800">{userCount}</span>
-          </div>
-          <div className="flex items-center mt-2">
-            <div className={cn(
-              "w-2 h-2 rounded-full mr-2",
-              isConnected ? "bg-green-500" : "bg-red-500"
-            )} />
-            <span className="text-sm text-gray-600">
-              {isConnected ? "Connected" : "Disconnected"}
-            </span>
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
