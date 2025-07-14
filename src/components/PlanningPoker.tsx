@@ -172,14 +172,23 @@ const PlanningPoker: React.FC = () => {
       <div className="card p-6 mb-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold text-gray-900">Sticker Grid</h2>
-          <button
-            onClick={startTimer}
-            disabled={!isHost}
-            className="btn-primary flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Play className="w-4 h-4 mr-2" />
-            Start Timer
-          </button>
+          <div style={{ minWidth: 160, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {roomState.isTimerRunning ? (
+              <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
+                <Clock className="w-5 h-5 mr-2 text-yellow-600" />
+                {roomState.timeLeft} seconds
+              </div>
+            ) : (
+              <button
+                onClick={startTimer}
+                className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ width: 160, height: 44 }}
+              >
+                <Play className="w-4 h-4 mr-2" />
+                Start Timer
+              </button>
+            )}
+          </div>
         </div>
         
         <div 
