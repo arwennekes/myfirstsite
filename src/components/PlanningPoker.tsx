@@ -33,7 +33,7 @@ const PlanningPoker: React.FC = () => {
 
   const copyRoomId = async () => {
     if (roomId) {
-      await navigator.clipboard.writeText(roomId)
+      await navigator.clipboard.writeText(window.location.href)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }
@@ -107,14 +107,21 @@ const PlanningPoker: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Sticker Grid</h1>
+          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+            Sticker Grid
+            {isHost ? (
+              <span className="ml-2 px-2 py-1 rounded bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200">Host</span>
+            ) : (
+              <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 text-xs font-semibold border border-gray-200">Participant</span>
+            )}
+          </h1>
           <div className="flex flex-wrap items-center mt-2 gap-2">
             <span className="text-gray-600">Room:</span>
             <span className="font-mono text-gray-800">{roomId}</span>
             <button
               onClick={copyRoomId}
               className="text-gray-500 hover:text-gray-700 transition-colors"
-              title="Copy room code"
+              title="Copy room link"
             >
               {copied ? (
                 <div className="text-green-600 text-sm font-medium">Copied!</div>
@@ -159,6 +166,7 @@ const PlanningPoker: React.FC = () => {
             ) : (
               <button
                 onClick={startTimer}
+                disabled={!isHost}
                 className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ width: 160, height: 44 }}
               >
@@ -190,7 +198,7 @@ const PlanningPoker: React.FC = () => {
             return (
               <div
                 key={sticker.id}
-                className="text-3xl pointer-events-none animate-bounce"
+                className="text-3xl sm:text-[60px] pointer-events-none animate-bounce"
                 style={style}
               >
                 {sticker.emoji}
