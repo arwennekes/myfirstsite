@@ -30,6 +30,7 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
   });
   const [isConnected, setIsConnected] = useState(false);
   const [userCount, setUserCount] = useState(1);
+  const [roomError, setRoomError] = useState<string | null>(null);
 
   useEffect(() => {
     // Use deployed server URL in production, localhost in development
@@ -98,6 +99,10 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
       setUserCount(count);
     });
 
+    newSocket.on('roomNotFound', () => {
+      setRoomError('Room does not exist or has no host.');
+    });
+
     return () => {
       newSocket.close();
     };
@@ -120,6 +125,7 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
     isConnected,
     startTimer,
     placeSticker,
-    userCount
+    userCount,
+    roomError
   };
 }; 

@@ -22,7 +22,8 @@ const PlanningPoker: React.FC = () => {
     isConnected,
     startTimer,
     placeSticker,
-    userCount
+    userCount,
+    roomError
   } = useMultiplayer(roomId || '', isHost || false)
 
   // Update grid layout based on current breakpoint
@@ -154,59 +155,80 @@ const PlanningPoker: React.FC = () => {
       </div>
 
       {/* Sticker Grid */}
-      <div className="card p-6 mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-900">Sticker Grid</h2>
-          <div style={{ minWidth: 160, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {roomState.isTimerRunning ? (
-              <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
-                <Clock className="w-5 h-5 mr-2 text-yellow-600" />
-                {roomState.timeLeft} seconds
-              </div>
-            ) : (
-              <button
-                onClick={startTimer}
-                disabled={!isHost}
-                className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ width: 160, height: 44 }}
+      {roomError ? (
+        <div className="flex flex-col items-center justify-center min-h-[300px]">
+          <div className="bg-red-100 border border-red-300 text-red-700 px-6 py-4 rounded mb-4 text-center text-lg font-semibold">
+            {roomError}
+          </div>
+          <button
+            onClick={() => navigate('/')}
+            className="btn-primary mt-2"
+          >
+            Go Home
+          </button>
+        </div>
+      ) : (
+        <div className="card p-6 mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-gray-900">Sticker Grid</h2>
+            <div style={{ minWidth: 160, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+              {roomState.isTimerRunning ? (
+                <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
+                  <Clock className="w-5 h-5 mr-2 text-yellow-600" />
+                  {roomState.timeLeft} seconds
+                </div>
+              ) : (
+                <div className="relative group" style={{ width: 160, height: 44 }}>
+                  <button
+                    onClick={startTimer}
+                    disabled={!isHost}
+                    className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed w-full h-full"
+                    style={{ width: 160, height: 44 }}
+                  >
+                    <Play className="w-4 h-4 mr-2" />
+                    Start Timer
+                  </button>
+                  {!isHost && (
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-20 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-3 py-2 whitespace-nowrap shadow-lg" style={{ minWidth: 180 }}>
+                      Only the host can start the timer
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+          
+          <div 
+            className="grid grid-cols-3 gap-3 relative bg-gray-50 p-4 rounded-lg cursor-default"
+            onClick={handlePlaceSticker}
+            style={{ cursor: roomState.isTimerRunning ? 'crosshair' : 'default' }}
+            ref={gridRef}
+          >
+            {fibonacciSequence.map((value, index) => (
+              <div
+                key={index}
+                className="aspect-square rounded-lg border-2 border-gray-300 bg-white flex items-center justify-center font-bold text-lg text-gray-500 cursor-default"
               >
-                <Play className="w-4 h-4 mr-2" />
-                Start Timer
-              </button>
-            )}
+                {value}
+              </div>
+            ))}
+            
+            {/* Sticker Overlays */}
+            {roomState.stickers.map((sticker) => {
+              const style = getStickerStyle(sticker)
+              return (
+                <div
+                  key={sticker.id}
+                  className="text-3xl sm:text-[60px] pointer-events-none animate-bounce"
+                  style={style}
+                >
+                  {sticker.emoji}
+                </div>
+              )
+            })}
           </div>
         </div>
-        
-        <div 
-          className="grid grid-cols-3 gap-3 relative bg-gray-50 p-4 rounded-lg cursor-default"
-          onClick={handlePlaceSticker}
-          style={{ cursor: roomState.isTimerRunning ? 'crosshair' : 'default' }}
-          ref={gridRef}
-        >
-          {fibonacciSequence.map((value, index) => (
-            <div
-              key={index}
-              className="aspect-square rounded-lg border-2 border-gray-300 bg-white flex items-center justify-center font-bold text-lg text-gray-500 cursor-default"
-            >
-              {value}
-            </div>
-          ))}
-          
-          {/* Sticker Overlays */}
-          {roomState.stickers.map((sticker) => {
-            const style = getStickerStyle(sticker)
-            return (
-              <div
-                key={sticker.id}
-                className="text-3xl sm:text-[60px] pointer-events-none animate-bounce"
-                style={style}
-              >
-                {sticker.emoji}
-              </div>
-            )
-          })}
-        </div>
-      </div>
+      )}
     </div>
   )
 }

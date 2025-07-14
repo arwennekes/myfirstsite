@@ -42,12 +42,24 @@ app.get('/', (req, res) => {
 const rooms = new Map();
 // Track users per room
 const roomUsers = new Map();
+// Track host per room
+const roomHosts = new Map();
 
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
   // Join room
   socket.on('joinRoom', ({ roomId, isHost }) => {
+    if (isHost) {
+      // Register host for this room
+      roomHosts.set(roomId, socket.id);
+    } else {
+      // If not host, only allow join if host exists
+      if (!roomHosts.has(roomId)) {
+        socket.emit('roomNotFound');
+        return;
+      }
+    }
     socket.join(roomId);
     
     if (!rooms.has(roomId)) {
@@ -127,12 +139,17 @@ io.on('connection', (socket) => {
     for (const [roomId, users] of roomUsers.entries()) {
       if (users.has(socket.id)) {
         users.delete(socket.id);
+        // If this user was the host, remove the host
+        if (roomHosts.get(roomId) === socket.id) {
+          roomHosts.delete(roomId);
+        }
         // Broadcast new user count
         io.to(roomId).emit('userCountUpdate', { count: users.size });
         // Optionally clean up empty rooms
         if (users.size === 0) {
           roomUsers.delete(roomId);
           rooms.delete(roomId);
+          roomHosts.delete(roomId);
         }
       }
     }
