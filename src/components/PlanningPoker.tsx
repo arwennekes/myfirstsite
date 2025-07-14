@@ -106,8 +106,8 @@ const PlanningPoker: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="flex flex-row justify-between items-start mb-6 gap-2">
-        <div className="flex flex-col gap-2">
+      <div className="flex flex-row justify-between items-stretch mb-6 gap-2">
+        <div className="flex flex-col gap-2 justify-start">
           <button
             onClick={() => navigate('/')}
             className="btn-secondary flex items-center w-max"
@@ -151,30 +151,32 @@ const PlanningPoker: React.FC = () => {
             </div>
           </div>
         </div>
-        <div style={{ minWidth: 160, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-          {roomState.isTimerRunning ? (
-            <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
-              <Clock className="w-5 h-5 mr-2 text-yellow-600" />
-              {roomState.timeLeft} seconds
-            </div>
-          ) : (
-            <div className="relative group" style={{ width: 160, height: 44 }}>
-              <button
-                onClick={startTimer}
-                disabled={!isHost}
-                className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed w-full h-full"
-                style={{ width: 160, height: 44 }}
-              >
-                <Play className="w-4 h-4 mr-2" />
-                Start Timer
-              </button>
-              {!isHost && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-20 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-3 py-2 whitespace-nowrap shadow-lg" style={{ minWidth: 180 }}>
-                  Only the host can start the timer
-                </div>
-              )}
-            </div>
-          )}
+        <div className="flex flex-col justify-end" style={{ minWidth: 160 }}>
+          <div style={{ minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+            {roomState.isTimerRunning ? (
+              <div className="btn-primary flex items-center justify-center" style={{ width: 160, height: 44, fontSize: '1.25rem', fontWeight: 600, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
+                <Clock className="w-5 h-5 mr-2 text-yellow-600" />
+                {roomState.timeLeft} seconds
+              </div>
+            ) : (
+              <div className="relative group" style={{ width: 160, height: 44 }}>
+                <button
+                  onClick={startTimer}
+                  disabled={!isHost}
+                  className="btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed w-full h-full"
+                  style={{ width: 160, height: 44 }}
+                >
+                  <Play className="w-4 h-4 mr-2" />
+                  Start Timer
+                </button>
+                {!isHost && (
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-20 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-3 py-2 whitespace-nowrap shadow-lg" style={{ minWidth: 180 }}>
+                    Only the host can start the timer
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
