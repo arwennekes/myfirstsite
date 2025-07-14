@@ -29,6 +29,7 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
     stickers: []
   });
   const [isConnected, setIsConnected] = useState(false);
+  const [userCount, setUserCount] = useState(1);
 
   useEffect(() => {
     // Use deployed server URL in production, localhost in development
@@ -93,6 +94,10 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
       });
     });
 
+    newSocket.on('userCountUpdate', ({ count }) => {
+      setUserCount(count);
+    });
+
     return () => {
       newSocket.close();
     };
@@ -114,6 +119,7 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
     roomState,
     isConnected,
     startTimer,
-    placeSticker
+    placeSticker,
+    userCount
   };
 }; 

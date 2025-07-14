@@ -21,7 +21,8 @@ const PlanningPoker: React.FC = () => {
     roomState,
     isConnected,
     startTimer,
-    placeSticker
+    placeSticker,
+    userCount
   } = useMultiplayer(roomId || '', isHost || false)
 
   // Update grid layout based on current breakpoint
@@ -121,6 +122,10 @@ const PlanningPoker: React.FC = () => {
                 <Copy className="w-4 h-4" />
               )}
             </button>
+          </div>
+          <div className="flex items-center mt-2">
+            <span className="text-gray-600 mr-2">Users in room:</span>
+            <span className="font-mono text-gray-800 mr-2">{userCount}</span>
           </div>
           <div className="flex items-center mt-2">
             <div className={cn(

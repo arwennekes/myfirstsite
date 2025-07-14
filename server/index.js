@@ -40,6 +40,8 @@ app.get('/', (req, res) => {
 
 // Store room data
 const rooms = new Map();
+// Track users per room
+const roomUsers = new Map();
 
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
@@ -56,6 +58,14 @@ io.on('connection', (socket) => {
         allStickers: [] // Store all stickers but only reveal after timer
       });
     }
+
+    // Track users in room
+    if (!roomUsers.has(roomId)) {
+      roomUsers.set(roomId, new Set());
+    }
+    roomUsers.get(roomId).add(socket.id);
+    // Broadcast user count
+    io.to(roomId).emit('userCountUpdate', { count: roomUsers.get(roomId).size });
 
     console.log(`Player joined room ${roomId}`);
   });
@@ -113,6 +123,19 @@ io.on('connection', (socket) => {
 
   // Disconnect
   socket.on('disconnect', () => {
+    // Remove user from all rooms they were in
+    for (const [roomId, users] of roomUsers.entries()) {
+      if (users.has(socket.id)) {
+        users.delete(socket.id);
+        // Broadcast new user count
+        io.to(roomId).emit('userCountUpdate', { count: users.size });
+        // Optionally clean up empty rooms
+        if (users.size === 0) {
+          roomUsers.delete(roomId);
+          rooms.delete(roomId);
+        }
+      }
+    }
     console.log('User disconnected:', socket.id);
   });
 });
