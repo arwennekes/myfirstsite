@@ -155,7 +155,7 @@ const PlanningPoker: React.FC = () => {
           <div style={{ minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
             {roomState.isTimerRunning ? (
               <div
-                className="btn-primary flex items-center justify-center text-base font-normal transition-colors duration-300"
+                className={`btn-primary flex items-center justify-center text-base font-normal transition-colors duration-300 ${roomState.timeLeft <= 3 ? 'animate-shake' : ''}`}
                 style={{
                   width: 160,
                   height: 44,

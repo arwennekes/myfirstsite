@@ -22,3 +22,18 @@
     @apply bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
 } 
+
+/* Simple shake animation for urgency cues */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+
+@layer utilities {
+  .animate-shake {
+    animation: shake 0.4s ease-in-out infinite;
+  }
+}
