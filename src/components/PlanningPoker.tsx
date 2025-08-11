@@ -116,14 +116,6 @@ const PlanningPoker: React.FC = () => {
             Back
           </button>
           <div>
-            <h1 className="font-bold text-gray-900 flex items-center gap-2">
-              Annabel's planning poker
-              {isHost ? (
-               <span className="ml-2 px-2 py-1 rounded bg-orange-100 text-orange-700 font-semibold border border-orange-200">Host</span>
-              ) : (
-               <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 font-semibold border border-gray-200">Participant</span>
-              )}
-            </h1>
             <div className="flex flex-wrap items-center mt-2 gap-2">
               <span className="text-gray-600">Room:</span>
               <span className="font-mono text-gray-800">{roomId}</span>
@@ -150,6 +142,14 @@ const PlanningPoker: React.FC = () => {
                 </span>
               </div>
             </div>
+            <h1 className="font-bold text-gray-900 flex items-center gap-2 mt-2">
+              Annabel's planning poker
+              {isHost ? (
+               <span className="ml-2 px-2 py-1 rounded bg-orange-100 text-orange-700 font-semibold border border-orange-200">Host</span>
+              ) : (
+               <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 font-semibold border border-gray-200">Participant</span>
+              )}
+            </h1>
           </div>
         </div>
         <div className="flex flex-col justify-end" style={{ minWidth: 160 }}>
