@@ -7,7 +7,7 @@ import { cn } from './lib/utils'
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="min-h-screen bg-white">
         <div className="container mx-auto px-4 py-8">
           <Routes>
             <Route path="/" element={<Welcome />} />
