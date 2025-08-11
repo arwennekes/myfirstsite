@@ -38,7 +38,7 @@ const Welcome: React.FC = () => {
         href="https://www.annabelwennekes.com/"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-4 right-4 text-[14pt] text-gray-500 hover:underline"
+        className="fixed bottom-4 right-4 text-base text-gray-500 hover:underline"
       >
         I have made more things
       </a>
