@@ -154,8 +154,18 @@ const PlanningPoker: React.FC = () => {
         <div className="flex flex-col justify-end" style={{ minWidth: 160 }}>
           <div style={{ minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
             {roomState.isTimerRunning ? (
-              <div className="btn-primary flex items-center justify-center text-base font-normal" style={{ width: 160, height: 44, backgroundColor: '#FEF3C7', color: '#B45309', border: '2px solid #FDE68A', borderRadius: '0.5rem' }}>
-                <Clock className="w-5 h-5 mr-2 text-yellow-600" />
+              <div
+                className="btn-primary flex items-center justify-center text-base font-normal transition-colors duration-300"
+                style={{
+                  width: 160,
+                  height: 44,
+                  backgroundColor: roomState.timeLeft <= 3 ? '#FEE2E2' : '#FEF3C7',
+                  color: roomState.timeLeft <= 3 ? '#991B1B' : '#B45309',
+                  border: `2px solid ${roomState.timeLeft <= 3 ? '#FECACA' : '#FDE68A'}`,
+                  borderRadius: '0.5rem'
+                }}
+              >
+                <Clock className={`w-5 h-5 mr-2 ${roomState.timeLeft <= 3 ? 'text-red-600' : 'text-yellow-600'}`} />
                 {roomState.timeLeft} seconds
               </div>
             ) : (
