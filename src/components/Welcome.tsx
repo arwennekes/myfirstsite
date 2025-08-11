@@ -31,22 +31,22 @@ const Welcome: React.FC = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto text-[9rem] font-normal">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Annabel's planning poker</h1>
+        <h1 className="text-gray-900 mb-2">Annabel's planning poker</h1>
         <p className="text-gray-600">Effortless remote ticket estimating</p>
       </div>
 
       <div className="card p-6">
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <h3 className="text-gray-900 mb-3 flex items-center">
               <Play className="w-5 h-5 mr-2" />
               Create New Room
             </h3>
             <button
               onClick={createRoom}
-              className="w-full btn-primary"
+              className="w-full btn-primary font-normal"
             >
               Create Room
             </button>
@@ -56,13 +56,13 @@ const Welcome: React.FC = () => {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300" />
             </div>
-            <div className="relative flex justify-center text-sm">
+            <div className="relative flex justify-center">
               <span className="px-2 bg-white text-gray-500">or</span>
             </div>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <h3 className="text-gray-900 mb-3 flex items-center">
               <Users className="w-5 h-5 mr-2" />
               Join Existing Room
             </h3>
@@ -79,7 +79,7 @@ const Welcome: React.FC = () => {
               <button
                 onClick={joinRoom}
                 disabled={!roomId}
-                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+                className="w-full btn-primary font-normal disabled:opacity-50 disabled:cursor-not-allowed mt-2"
               >
                 Join Room
               </button>
