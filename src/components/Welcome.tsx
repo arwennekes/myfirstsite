@@ -32,7 +32,10 @@ const Welcome: React.FC = () => {
               onClick={createRoom}
               className="w-full btn-primary font-normal"
             >
-              Create Room
+              <span className="flex items-center justify-center">
+                <Play className="w-4 h-4 mr-2" />
+                Create Room
+              </span>
             </button>
           </div>
         </div>
