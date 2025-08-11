@@ -18,6 +18,7 @@ const Welcome: React.FC = () => {
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center font-normal">
       <div className="w-full max-w-md">
         <div className="text-left mb-8">
+          <img src="/home-hero.png" alt="Target" className="w-12 h-12 mb-4" />
           <h1 className="text-gray-900 mb-2">Annabel's planning poker</h1>
           <p className="text-gray-600">Effortless remote ticket estimating</p>
         </div>
