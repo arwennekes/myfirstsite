@@ -116,12 +116,12 @@ const PlanningPoker: React.FC = () => {
             Back
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+            <h1 className="font-bold text-gray-900 flex items-center gap-2">
               Annabel's planning poker
               {isHost ? (
-                <span className="ml-2 px-2 py-1 rounded bg-orange-100 text-orange-700 text-xs font-semibold border border-orange-200">Host</span>
+               <span className="ml-2 px-2 py-1 rounded bg-orange-100 text-orange-700 font-semibold border border-orange-200">Host</span>
               ) : (
-                <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 text-xs font-semibold border border-gray-200">Participant</span>
+               <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 font-semibold border border-gray-200">Participant</span>
               )}
             </h1>
             <div className="flex flex-wrap items-center mt-2 gap-2">
@@ -146,7 +146,7 @@ const PlanningPoker: React.FC = () => {
                 "w-2 h-2 rounded-full mr-2",
                 isConnected ? "bg-green-500" : "bg-red-500"
               )} />
-              <span className="text-sm text-gray-600">
+              <span className="text-gray-600">
                 {isConnected ? "Connected" : "Disconnected"}
               </span>
             </div>
@@ -171,7 +171,7 @@ const PlanningPoker: React.FC = () => {
                   Start Timer
                 </button>
                 {!isHost && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-20 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-3 py-2 whitespace-nowrap shadow-lg" style={{ minWidth: 180 }}>
+                   <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-20 hidden group-hover:block bg-gray-800 text-white rounded px-3 py-2 whitespace-nowrap shadow-lg" style={{ minWidth: 180 }}>
                     Only the host can start the timer
                   </div>
                 )}
@@ -184,7 +184,7 @@ const PlanningPoker: React.FC = () => {
       {/* Sticker Grid */}
       {roomError ? (
         <div className="flex flex-col items-center justify-center min-h-[300px]">
-          <div className="bg-red-100 border border-red-300 text-red-700 px-6 py-4 rounded mb-4 text-center text-lg font-semibold">
+           <div className="bg-red-100 border border-red-300 text-red-700 px-6 py-4 rounded mb-4 text-center font-semibold">
             {roomError}
           </div>
           <button
@@ -205,7 +205,7 @@ const PlanningPoker: React.FC = () => {
             {fibonacciSequence.map((value, index) => (
               <div
                 key={index}
-                className="aspect-square rounded-lg border-2 border-gray-300 bg-white flex items-center justify-center font-bold text-lg text-gray-500 cursor-default"
+                className="aspect-square rounded-lg border-2 border-gray-300 bg-white flex items-center justify-center font-bold text-gray-500 cursor-default"
               >
                 {value}
               </div>
@@ -216,7 +216,7 @@ const PlanningPoker: React.FC = () => {
               return (
                 <div
                   key={sticker.id}
-                  className="text-3xl sm:text-[60px] pointer-events-none animate-bounce"
+                  className="pointer-events-none animate-bounce"
                   style={style}
                 >
                   {sticker.emoji}
