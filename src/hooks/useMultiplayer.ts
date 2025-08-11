@@ -25,7 +25,7 @@ export const useMultiplayer = (roomId: string, isHost: boolean) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [roomState, setRoomState] = useState<RoomState>({
     isTimerRunning: false,
-    timeLeft: 5,
+    timeLeft: 10,
     stickers: []
   });
   const [isConnected, setIsConnected] = useState(false);

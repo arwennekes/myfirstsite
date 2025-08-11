@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
     if (!rooms.has(roomId)) {
       rooms.set(roomId, {
         isTimerRunning: false,
-        timeLeft: 5,
+        timeLeft: 10,
         stickers: [],
         allStickers: [] // Store all stickers but only reveal after timer
       });
@@ -87,7 +87,7 @@ io.on('connection', (socket) => {
     const room = rooms.get(roomId);
     if (room) {
       room.isTimerRunning = true;
-      room.timeLeft = 5;
+      room.timeLeft = 10;
       room.stickers = [];
       room.allStickers = [];
 
