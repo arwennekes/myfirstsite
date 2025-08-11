@@ -22,7 +22,13 @@ const Welcome: React.FC = () => {
             src="/home-hero.png"
             alt="Target"
             className="h-[200px] w-auto mb-4"
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+            onError={(e) => {
+              const el = e.currentTarget as HTMLImageElement
+              // Fallback to star favicon if home-hero.png is missing
+              if (!el.src.includes('favicon-star.svg')) {
+                el.src = '/favicon-star.svg'
+              }
+            }}
           />
           <h1 className="text-gray-900 mb-2">Annabel's planning poker</h1>
           <p className="text-gray-600">Effortless remote ticket estimating</p>
