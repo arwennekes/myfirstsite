@@ -21,7 +21,7 @@ const Welcome: React.FC = () => {
           <img
             src="/home-hero.png"
             alt="Target"
-            className="w-12 h-12 mb-4"
+            className="h-[200px] w-auto mb-4"
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
           />
           <h1 className="text-gray-900 mb-2">Annabel's planning poker</h1>
