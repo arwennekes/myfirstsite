@@ -113,7 +113,7 @@ const PlanningPoker: React.FC = () => {
             className="flex items-center w-max px-0 py-0 bg-transparent text-black font-normal text-base hover:underline transition-colors shadow-none border-none mb-6"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
-            Back
+            Home
           </button>
           <div>
             <div className="flex flex-wrap items-center mt-2 gap-2">
