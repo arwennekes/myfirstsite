@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import { Copy, Home, Play, Clock, ChevronLeft } from 'lucide-react'
+import { Copy, Play, Clock, ChevronLeft } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { useMultiplayer } from '../hooks/useMultiplayer'
 
@@ -117,7 +117,7 @@ const PlanningPoker: React.FC = () => {
           </button>
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-              Planning Poker
+              Annabel's planning poker
               {isHost ? (
                 <span className="ml-2 px-2 py-1 rounded bg-orange-100 text-orange-700 text-xs font-semibold border border-orange-200">Host</span>
               ) : (

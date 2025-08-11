@@ -33,8 +33,8 @@ const Welcome: React.FC = () => {
   return (
     <div className="max-w-md mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Planning Poker</h1>
-        <p className="text-gray-600">Place stickers together in real-time</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Annabel's planning poker</h1>
+        <p className="text-gray-600">Effortless remote ticket estimating</p>
       </div>
 
       <div className="card p-6">
@@ -88,9 +88,7 @@ const Welcome: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-8 text-center text-sm text-gray-500">
-        <p>Place stickers together with friends in real-time!</p>
-      </div>
+      
     </div>
   )
 }
