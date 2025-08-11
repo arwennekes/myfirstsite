@@ -107,7 +107,7 @@ const PlanningPoker: React.FC = () => {
     <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex flex-row justify-between items-stretch mb-6 gap-2">
-        <div className="flex flex-col gap-2 justify-start">
+        <div className="flex flex-col gap-4 justify-start">
           <button
             onClick={() => navigate('/')}
             className="flex items-center w-max px-0 py-0 bg-transparent text-black font-normal text-base hover:underline transition-colors shadow-none border-none"
