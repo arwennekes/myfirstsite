@@ -145,7 +145,7 @@ const PlanningPoker: React.FC = () => {
             <h1 className="font-bold text-gray-900 flex items-center gap-2 mt-2">
               Annabel's planning poker
               {isHost ? (
-               <span className="ml-2 px-2 py-1 rounded bg-orange-100 text-orange-700 font-semibold border border-orange-200">Host</span>
+               <span className="ml-2 text-gray-700">You're the host!</span>
               ) : (
                <span className="ml-2 px-2 py-1 rounded bg-gray-100 text-gray-700 font-semibold border border-gray-200">Participant</span>
               )}
