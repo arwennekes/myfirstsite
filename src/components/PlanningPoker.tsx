@@ -110,7 +110,7 @@ const PlanningPoker: React.FC = () => {
         <div className="flex flex-col gap-2 justify-start">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center w-max px-4 py-2 rounded bg-blue-100 text-blue-700 font-semibold text-sm hover:bg-blue-200 transition-colors shadow-none border-none"
+            className="flex items-center w-max px-4 py-2 rounded bg-black text-white font-semibold text-sm hover:bg-gray-900 transition-colors shadow-none border-none"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
             Back
