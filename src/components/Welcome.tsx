@@ -32,7 +32,7 @@ const Welcome: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto font-normal">
-      <div className="text-center mb-8">
+      <div className="text-left mb-8">
         <h1 className="text-gray-900 mb-2">Annabel's planning poker</h1>
         <p className="text-gray-600">Effortless remote ticket estimating</p>
       </div>
