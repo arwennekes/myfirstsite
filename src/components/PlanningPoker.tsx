@@ -215,7 +215,7 @@ const PlanningPoker: React.FC = () => {
               return (
                 <div
                   key={sticker.id}
-                  className="pointer-events-none animate-bounce"
+                  className="text-3xl sm:text-[60px] pointer-events-none animate-bounce"
                   style={style}
                 >
                   {sticker.emoji}
