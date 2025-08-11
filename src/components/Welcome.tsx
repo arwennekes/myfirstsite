@@ -15,25 +15,25 @@ const Welcome: React.FC = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto font-normal">
-      <div className="text-left mb-8">
-        <h1 className="text-gray-900 mb-2">Annabel's planning poker</h1>
-        <p className="text-gray-600">Effortless remote ticket estimating</p>
-      </div>
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center font-normal">
+      <div className="w-full max-w-md">
+        <div className="text-left mb-8">
+          <h1 className="text-gray-900 mb-2">Annabel's planning poker</h1>
+          <p className="text-gray-600">Effortless remote ticket estimating</p>
+        </div>
 
-      <div className="mt-6">
-        <button
-          onClick={createRoom}
-          className="btn-primary font-normal"
-        >
-          <span className="flex items-center justify-center">
-            <Play className="w-4 h-4 mr-2" />
-            Create room
-          </span>
-        </button>
+        <div className="mt-6">
+          <button
+            onClick={createRoom}
+            className="btn-primary font-normal"
+          >
+            <span className="flex items-center justify-center">
+              <Play className="w-4 h-4 mr-2" />
+              Create room
+            </span>
+          </button>
+        </div>
       </div>
-
-      
     </div>
   )
 }
