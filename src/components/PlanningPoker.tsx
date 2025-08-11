@@ -142,7 +142,7 @@ const PlanningPoker: React.FC = () => {
                 </span>
               </div>
             </div>
-            <h1 className="font-bold text-gray-900 flex items-center gap-2 mt-2">
+            <h1 className="text-gray-900 flex items-center gap-2 mt-2">
               {isHost ? (
                <span className="ml-0 text-gray-700">You're the host!</span>
               ) : (
