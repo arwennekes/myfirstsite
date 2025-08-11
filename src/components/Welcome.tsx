@@ -28,7 +28,7 @@ const Welcome: React.FC = () => {
         >
           <span className="flex items-center justify-center">
             <Play className="w-4 h-4 mr-2" />
-            Create Room
+            Create room
           </span>
         </button>
       </div>
